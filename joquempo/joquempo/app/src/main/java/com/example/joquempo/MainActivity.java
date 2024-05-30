@@ -13,9 +13,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
+import android.content.Context;
+import android.net.wifi.WifiManager;
+
 import kotlin.reflect.KFunction;
 
 public class MainActivity extends AppCompatActivity {
+
+    private WifiManager wifiManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+            // Inicializar WifiManager
+            wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+            // Verificar se o Wi-Fi está habilitado
+            if (!wifiManager.isWifiEnabled()) {
+                // Habilitar Wi-Fi
+                wifiManager.setWifiEnabled(true);
+            }
+
 
     }
     public void  selecionadoPedra (View view) {
