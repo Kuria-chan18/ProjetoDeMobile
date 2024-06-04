@@ -46,7 +46,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_background" <!-- Add your button background drawable -->
     android:text="configuração"
-    android:textColor="#000000"
+    android:textColor="#FFFFFF"
     android:textSize="18sp" />
 
 </RelativeLayout>
