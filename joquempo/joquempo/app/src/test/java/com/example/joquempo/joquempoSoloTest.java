@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
         //assertEquals(4, 2 + 2);
     //}
 
-    public class PedraPapelTesouraTest {
+    public class joquempoSoloTest {
         @Test
         public void testEmpate() {
-            PedraPapelTesoura jogo = new PedraPapelTesoura();
+           joquempoSolo jogo = new joquempoSolo();
             assertEquals("Empate", jogo.jogar(PedraPapelTesoura.Jogada.PEDRA, PedraPapelTesoura.Jogada.PEDRA));
             assertEquals("Empate", jogo.jogar(PedraPapelTesoura.Jogada.PAPEL, PedraPapelTesoura.Jogada.PAPEL));
             assertEquals("Empate", jogo.jogar(PedraPapelTesoura.Jogada.TESOURA, PedraPapelTesoura.Jogada.TESOURA));
@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
     
         @Test
         public void testJogadorVence() {
-            PedraPapelTesoura jogo = new PedraPapelTesoura();
+            joquempoSolo jogo = new joquempoSolo();
             assertEquals("Jogador vence", jogo.jogar(PedraPapelTesoura.Jogada.PEDRA, PedraPapelTesoura.Jogada.TESOURA));
             assertEquals("Jogador vence", jogo.jogar(PedraPapelTesoura.Jogada.PAPEL, PedraPapelTesoura.Jogada.PEDRA));
             assertEquals("Jogador vence", jogo.jogar(PedraPapelTesoura.Jogada.TESOURA, PedraPapelTesoura.Jogada.PAPEL));
@@ -35,11 +35,10 @@ import static org.junit.Assert.*;
     
         @Test
         public void testComputadorVence() {
-            PedraPapelTesoura jogo = new PedraPapelTesoura();
-            assertEquals("Computador vence", jogo.jogar(PedraPapelTesoura.Jogada.TESOURA, PedraPapelTesoura.Jogada.PEDRA));
-            assertEquals("Computador vence", jogo.jogar(PedraPapelTesoura.Jogada.PEDRA, PedraPapelTesoura.Jogada.PAPEL));
-            assertEquals("Computador vence", jogo.jogar(PedraPapelTesoura.Jogada.PAPEL, PedraPapelTesoura.Jogada.TESOURA));
+           joquempoSolo jogo = new joquempoSolo();
+            assertEquals("Máquina vence", jogo.jogar(PedraPapelTesoura.Jogada.TESOURA, PedraPapelTesoura.Jogada.PEDRA));
+            assertEquals("Máquina vence", jogo.jogar(PedraPapelTesoura.Jogada.PEDRA, PedraPapelTesoura.Jogada.PAPEL));
+            assertEquals("Máquina vence", jogo.jogar(PedraPapelTesoura.Jogada.PAPEL, PedraPapelTesoura.Jogada.TESOURA));
         }
 
 }
-
