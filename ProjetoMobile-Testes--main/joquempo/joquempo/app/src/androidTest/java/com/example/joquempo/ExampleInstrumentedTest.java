@@ -1,17 +1,31 @@
 package com.example.joquempo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Random;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.verify;
 
 import org.MockitoJUnitRunner.Test;
-//será que é o import correto?
+
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -33,12 +47,24 @@ public class MainActivityTest {
     @Mock
     Context mockContext;
 
+    @Mock
+    ImageView imageResultado;
+
+    @Mock
+    TextView textResultado;
+
     @InjectMocks
     MainActivity mainActivity;
 
+    @Before
+    public void setUp() {
+        mainActivity = new MainActivity();
+        mainActivity.imageResultado = imageResultado;
+        mainActivity.textResultado = textResultado;
+    }
+
     @Test
     public void testNavigateToSoloGame() {
-       
         mainActivity.navigateToGameOptions();
 
         Intent expectedIntent = new Intent(mockContext, GameOptionsActivity.class);
@@ -50,7 +76,83 @@ public class MainActivityTest {
 
         Mockito.verify(mockContext).startActivity(expectedIntent);
     }
+
+    @Test
+    public void testOpcaoSelecionadaPedra() {
+        mainActivity.opcaoSelecionada("pedra");
+
+        assertNotNull(mainActivity.imageResultado);
+        assertNotNull(mainActivity.textResultado);
+
+        verify(imageResultado).setImageResource(Mockito.anyInt());
+
+        String opcaoApp = mainActivity.getOpcaoApp();
+
+        if ((opcaoApp.equals("tesoura") && "pedra".equals("papel")) ||
+            (opcaoApp.equals("papel") && "pedra".equals("pedra")) ||
+            (opcaoApp.equals("pedra") && "pedra".equals("tesoura"))) {
+            verify(textResultado).setText("Você perdeu :( ");
+        } else if (
+            ("pedra".equals("tesoura") && opcaoApp.equals("papel")) ||
+            ("pedra".equals("papel") && opcaoApp.equals("pedra")) ||
+            ("pedra".equals("pedra") && opcaoApp.equals("tesoura"))) {
+            verify(textResultado).setText("Você ganhou! :D ");
+        } else {
+            verify(textResultado).setText("Empatamos ;)");
+        }
+    }
+
+    @Test
+    public void testOpcaoSelecionadaPapel() {
+        mainActivity.opcaoSelecionada("papel");
+
+        assertNotNull(mainActivity.imageResultado);
+        assertNotNull(mainActivity.textResultado);
+
+        verify(imageResultado).setImageResource(Mockito.anyInt());
+
+        String opcaoApp = mainActivity.getOpcaoApp();
+
+        if ((opcaoApp.equals("tesoura") && "papel".equals("papel")) ||
+            (opcaoApp.equals("papel") && "papel".equals("pedra")) ||
+            (opcaoApp.equals("pedra") && "papel".equals("tesoura"))) {
+            verify(textResultado).setText("Você perdeu :( ");
+        } else if (
+            ("papel".equals("tesoura") && opcaoApp.equals("papel")) ||
+            ("papel".equals("papel") && opcaoApp.equals("pedra")) ||
+            ("papel".equals("pedra") && opcaoApp.equals("tesoura"))) {
+            verify(textResultado).setText("Você ganhou! :D ");
+        } else {
+            verify(textResultado).setText("Empatamos ;)");
+        }
+    }
+
+    @Test
+    public void testOpcaoSelecionadaTesoura() {
+        mainActivity.opcaoSelecionada("tesoura");
+
+        assertNotNull(mainActivity.imageResultado);
+        assertNotNull(mainActivity.textResultado);
+
+        verify(imageResultado).setImageResource(Mockito.anyInt());
+
+        String opcaoApp = mainActivity.getOpcaoApp();
+
+        if ((opcaoApp.equals("tesoura") && "tesoura".equals("papel")) ||
+            (opcaoApp.equals("papel") && "tesoura".equals("pedra")) ||
+            (opcaoApp.equals("pedra") && "tesoura".equals("tesoura"))) {
+            verify(textResultado).setText("Você perdeu :( ");
+        } else if (
+            ("tesoura".equals("tesoura") && opcaoApp.equals("papel")) ||
+            ("tesoura".equals("papel") && opcaoApp.equals("pedra")) ||
+            ("tesoura".equals("pedra") && opcaoApp.equals("tesoura"))) {
+            verify(textResultado).setText("Você ganhou! :D ");
+        } else {
+            verify(textResultado).setText("Empatamos ;)");
+        }
+    }
 }
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class Tela2ActivityTest {
@@ -206,6 +308,7 @@ public class ProfileActivityTest {
         String username = profileActivity.getProfileDetail("username");
         assertEquals("new_username", username);
     }
+
 }
 
 }
